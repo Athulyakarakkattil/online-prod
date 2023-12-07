@@ -30,3 +30,21 @@ variable "project_owner" {
   description = "Owner of the project"
   default     = "athulya"
 }
+
+variable "hosted_zone_id" {
+  type        = string
+  description = "my hosted zone id"
+  default     = "Z063452717MYXAQGKGA6D"
+}
+
+variable "hosted_zone_name" {
+  type        = string
+  description = "domain name"
+  default     = "devopsconnect.online"
+}
+
+variable "hostname" {
+  type        = string
+  description = "hostname"
+  default     = "online"
+}

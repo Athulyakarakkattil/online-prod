@@ -103,4 +103,17 @@ resource "aws_instance" "frontend" {
     env     = var.project_env
     owner   = var.project_owner
   }
+
+}
+
+
+#====Domain_record_creation================
+
+resource "aws_route53_record" "frontend" {
+
+  zone_id = var.hosted_zone_id
+  name    = "${var.hostname}.${var.hosted_zone_name}"
+  type    = "A"
+  ttl     = 300
+  records = [aws_instance.frontend.public_ip]
 }
