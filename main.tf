@@ -106,14 +106,26 @@ resource "aws_instance" "frontend" {
 
 }
 
+#========elastic_ip_for_Ec2_instance======
+resource "aws_eip" "frontend" {
+   instance = aws_instance.frontend.id
+   domain = "vpc"
+   tags = {
+    Name    = "${var.project_name}-${var.project_env}"
+    project = var.project_name
+    env     = var.project_env
+    owner   = var.project_owner
+  }
+}
 
 #====Domain_record_creation================
 
 resource "aws_route53_record" "frontend" {
 
-  zone_id = var.hosted_zone_id
-  name    = "${var.hostname}.${var.hosted_zone_name}"
-  type    = "A"
-  ttl     = 300
-  records = [aws_instance.frontend.public_ip]
+    zone_id = var.hosted_zone_id
+    name    = "${var.hostname}.${var.hosted_zone_name}"
+    type    = "A"
+    ttl     = 300
+    records = [ aws_eip.frontend.public_ip ]
 }
+
